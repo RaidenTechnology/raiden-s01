@@ -11,6 +11,12 @@
 > real sessions, not a live log — I'd rather say that than pretend the commit history shows
 > something it doesn't. Everything technical in here is verifiable against the files in
 > `hardware/` and `fab/`.
+>
+> The same applies to images: I didn't capture screenshots while working, so the only renders
+> I have are of the finished board, and they appear in the session where they were actually
+> generated. I'd rather show three real images than dress up intermediate ones I never took.
+> The full schematic is in [`fab/Raiden S0-1 Schematic.pdf`](fab/Raiden%20S0-1%20Schematic.pdf)
+> and every claim below can be checked against the KiCad files in `hardware/`.
 
 **What makes this board not "just another devboard":** it is built around a **bare ESP32-S3FN8
 in a QFN-56 package**, not a pre-made module. That means the 0.4 mm pitch fanout, the crystal
@@ -194,7 +200,25 @@ drill map, pick-and-place data, the schematic as PDF, and the BOM with part numb
 trap: the drill export takes `--excellon-units`, not `--units`. The generic flag is silently
 wrong.)
 
-Rendered three views with `kicad-cli pcb render` for the README.
+Rendered three views with `kicad-cli pcb render`. These are the board as it stands today —
+what the grant would turn into copper:
+
+**Top** — the QFN-56 in the centre, both 15-pin GPIO headers, USB-C at the edge, the u.FL
+antenna connector and its deliberate copper keepout, and the silkscreen after the cleanup pass
+in Session 4 (pin numbers on the front, I/O names on the back):
+
+![Top view](images/board-top.png)
+
+**Bottom** — the rear I/O name column, the edge power rails, and the four M2 mounting holes:
+
+![Bottom view](images/board-bottom.png)
+
+**Perspective:**
+
+![Hero render](images/board-hero.png)
+
+(A render trap worth noting: `--rotate` needs its value in nested quotes, e.g.
+`--rotate "'-35,0,-30'"`, or the argument parser rejects it.)
 
 Published the repository under CERN-OHL-P v2.
 
