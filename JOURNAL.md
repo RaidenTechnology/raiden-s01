@@ -4,6 +4,7 @@
 **Author:** Raiden Technology
 **Repo:** https://github.com/RaidenTechnology/raiden-s01
 **License:** CERN-OHL-P v2
+**Total time:** ~60 hours across six sessions, 11–15 July 2026
 
 > **A note on this journal, up front:** the design work happened over 11–15 July 2026. I
 > published the repository as a single release commit on 15 July and only wrote this journal
@@ -27,7 +28,7 @@ so sensors can be fed without a breadboard at all.
 ---
 
 ## Session 1 — 11 July 2026 · Schematic, and the first PCB layout
-**Time:** _(fill in)_
+**Time:** ~14 hours
 
 Built the schematic around the ESP32-S3FN8 (QFN-56, 8 MB embedded flash).
 
@@ -63,7 +64,7 @@ entirely. Cheap fix, but only because I caught it before routing.
 ---
 
 ## Session 2 — 12 July 2026 · Invisible disconnections, and why 2 layers wasn't enough
-**Time:** _(fill in)_
+**Time:** ~13 hours
 
 Checked the traces I had drawn by hand. Ten of them (GPIO1–8, 14, 17) **stopped 60–100 µm short
 of the QFN pad copper.** On screen they looked connected. They were not. Several joints were
@@ -104,7 +105,7 @@ Two tooling lessons from this session:
 ---
 
 ## Session 3 — 12–13 July 2026 · Hunting isolated copper, and blind vias
-**Time:** _(fill in)_
+**Time:** ~11 hours
 
 `kicad-cli` DRC kept reporting the ground zone as having a missing connection, but the
 coordinates it gave were useless — it always points at the zone anchor, not the actual fault.
@@ -136,7 +137,7 @@ via and a local zone.
 ---
 
 ## Session 4 — 13 July 2026 · Cleanup and optimisation
-**Time:** _(fill in)_
+**Time:** ~8 hours
 
 - Added 4 × M2 mounting holes (non-plated), positioned by searching the corners for spots that
   didn't collide with the boot button or the regulator cluster.
@@ -157,7 +158,7 @@ as good as the constraint list you gave it, and the constraints you forget are i
 ---
 
 ## Session 5 — 14 July 2026 · Reviewing my own board
-**Time:** _(fill in)_
+**Time:** ~6 hours
 
 Went through the board as if reviewing someone else's work, against a checklist. Scored it
 **84/100** and wrote down the deductions honestly rather than defending the design.
@@ -190,7 +191,7 @@ These are Rev B work, along with a power LED and tighter decoupling.
 ---
 
 ## Session 6 — 14–15 July 2026 · Fabrication package and release
-**Time:** _(fill in)_
+**Time:** ~8 hours
 
 Filled all six zones through the pcbnew Python API, because `kicad-cli` has no fill command at
 all — this was the last piece of the "why do my zone errors never clear" puzzle from Session 2.
