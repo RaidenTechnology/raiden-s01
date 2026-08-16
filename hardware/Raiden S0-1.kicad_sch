@@ -14164,16 +14164,4 @@
 		)
 	)
 	(embedded_fonts no)
-	(text "Y2: 40MHz kristal CL=8pF OLMALI (orn. ECS-400-8-30B) - C9/C10=10pF buna gore"
-		(exclude_from_sim no)
-		(at 240 220 0)
-		(effects
-			(font
-				(size 1.6 1.6)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-		(uuid "eb4a9575-d635-4743-ae59-3d098a443970")
-	)
 )
