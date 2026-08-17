@@ -13,7 +13,7 @@ The Raiden S0-1 is a compact 4-layer devkit built around the **ESP32-S3FN8** (du
 | **MCU** | ESP32-S3FN8 (QFN-56, 8 MB flash) |
 | **USB** | USB-C (USB 2.0), ESD-protected (PRTR5V0U2X), 5.1 kΩ CC pull-downs |
 | **Power** | AZ1117C-3.3 LDO, 750 mA PTC resettable fuse, power LED |
-| **RF** | U.FL (IPEX) antenna connector, 50 Ω controlled-impedance feed line with matching network |
+| **RF** | U.FL (IPEX) antenna connector, feed line drawn for 50 Ω single-ended with a pi matching network — see the note below, impedance is **not** verified |
 | **Clocks** | 40 MHz main crystal (CL = 8 pF) · 32.768 kHz RTC crystal (CL = 12.5 pF) |
 | **I/O** | 2 × 15-pin 2.54 mm headers, BOOT + RESET buttons |
 | **Board** | 4-layer FR-4, 1.6 mm — Sig / GND / +3V3 / Sig stackup, black soldermask |
@@ -29,6 +29,11 @@ The Raiden S0-1 is a compact 4-layer devkit built around the **ESP32-S3FN8** (du
 
 - **ERC: 0 errors** — **DRC: 0 errors, 0 unconnected items** (KiCad 9.0.7, `kicad-cli`)
 - 5 permanent DRC notices are intentional local footprint overrides (U.FL RF keepout + M2 mounting holes)
+
+### Known limitations
+
+- **The RF feed is not impedance-verified.** The trace is drawn at 0.2 mm and the design intent is 50 Ω single-ended, but no controlled-impedance stackup was ever defined for the project, so 50 Ω is an assumption rather than a calculated or measured figure. The pi matching network (1 pF / 2.0 nH / 1 pF) uses starting values with no VNA behind them and is expected to be tuned after measurement.
+- **The board has not been manufactured.** The design is complete and the fabrication package is generated, but no production run has happened, so nothing here has been validated on real silicon.
 
 ## Repository layout
 
