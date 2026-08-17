@@ -1,0 +1,26 @@
+version: '1.0.0'
+
+name: 'Raiden S0-1'
+
+description: 'https://raw.githubusercontent.com/RaidenTechnology/raiden-s01/main/README.md'
+
+website: 'https://github.com/RaidenTechnology/raiden-s01'
+
+licenses:
+  - 'CERN-OHL-P-2.0'
+
+images:
+  - 'https://raw.githubusercontent.com/RaidenTechnology/raiden-s01/main/images/board-hero.png'
+  - 'https://raw.githubusercontent.com/RaidenTechnology/raiden-s01/main/images/board-top.png'
+  - 'https://raw.githubusercontent.com/RaidenTechnology/raiden-s01/main/images/board-bottom.png'
+  - 'https://raw.githubusercontent.com/RaidenTechnology/raiden-s01/main/images/schematic.png'
+
+documentation: 'https://github.com/RaidenTechnology/raiden-s01/blob/main/README.md'
+
+issues: 'https://github.com/RaidenTechnology/raiden-s01/issues'
+
+links:
+  - name: 'Design journal'
+    url: 'https://github.com/RaidenTechnology/raiden-s01/blob/main/JOURNAL.md'
+  - name: 'Fabrication package'
+    url: 'https://github.com/RaidenTechnology/raiden-s01/tree/main/fab'
