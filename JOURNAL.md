@@ -229,11 +229,64 @@ mounting holes — and they are documented as such rather than suppressed.
 
 ---
 
+## Session 7 — 17 August 2026 · Review feedback, and a connector that could never have been plugged in
+
+I submitted this board to a build grant, and a reviewer looked at the renders and said the USB-C
+port should be at the edge of the board, otherwise you won't be able to reach it.
+
+He was right, and it was not a cosmetic point. I measured it: the connector body ended at
+y = 156.25 mm and the board edge is at y = 160 mm, so **3.75 mm of solid PCB sat directly in
+front of the connector opening**. A cable's overmould would have hit the board before the plug
+seated. Five people had by then been pointed at this repository, and nobody had caught it,
+because the board looks completely normal until you think about the third dimension.
+
+Moving the connector turned out not to be a drag-and-drop. USB-C is reversible, so VBUS appears
+on two pads and D+ on two more, and those pairs are bridged by a small fan-out structure routed
+*underneath* the connector. My first attempt moved the connector and extended the eight traces
+that feed it from above, but left the bridges where they were — which drew CC2 straight across a
+VBUS trace and shorted them. DRC caught it immediately. The fix was to recognise that the bridge
+belongs to the connector, not to the board, and translate the whole assembly together. Notably
+the original bridge routing threads between the connector's own NPTH mounting posts, and moving
+it as one piece preserved that automatically.
+
+One extension was also wrong: I had generated a stub for every trace endpoint touching a pad,
+but the right-hand VBUS pad is fed only by the bridge, never from above. That produced a 3.75 mm
+trace hanging in mid-air. DRC reported it as an unconnected end and I deleted it.
+
+The other three review points:
+
+- **Rounded corners.** The outline was a plain rectangle. I set the radius to 1.8 mm, which is
+  exactly the mounting-hole inset, so each corner arc is concentric with its hole and the web
+  between hole and board edge stays 0.70 mm the whole way round — the same as it was with square
+  corners. Both a larger and a smaller radius make that web thinner, which is a pleasing result:
+  the geometry picks its own answer.
+- **The odd mounting hole.** Three holes sat 1.8 mm in from their edges and the fourth sat 4.6 mm
+  in, because the BOOT button occupied that corner. Moving the button up 0.3 mm cleared it, and
+  the hole went to 1.8 mm like the others. The button's ground pads carry no traces at all — they
+  are fed by the plane — so only four segments had to follow it.
+- **Silkscreen art.** The front had no board identity at all. A free-space scan over courtyards,
+  pads and existing silk found exactly one usable gap on the whole board, 12 x 4 mm, and a
+  lightning bolt and the word RAIDEN now live in it. My first attempt collided with a pin number;
+  the scan had missed it because my parser choked on nested `effects` blocks in the text
+  elements. DRC's silkscreen-overlap check caught what my own tool had missed.
+
+**Verification state after the revision:** ERC 0 errors · DRC 0 errors · 0 unconnected items ·
+0 schematic-parity issues. The fabrication package, placement files and renders were all
+regenerated from the revised board, because a repository that ships stale Gerbers alongside a
+corrected board is worse than one that ships nothing.
+
+The lesson worth keeping: this was caught by someone glancing at pictures, days before any money
+was spent. Every automated check I own passed on a board that could not have been plugged in.
+
+---
+
 ## Status
 
 **Rev A is design-complete and verification-clean, and has never been manufactured.** The
 Gerbers in `fab/` have not yet been sent to a fab. That first run is exactly what I'm asking a
-build grant to cover.
+build grant to cover. As of 17 August 2026 the board carries the four fixes from Session 7 —
+the USB-C connector now reaches the board edge, the corners are rounded, the mounting holes are
+evenly inset and the front carries a brand mark.
 
 **Rev B** is in progress in a separate project: the same board with the GPIO headers spaced
 25.4 mm apart so it seats on a breadboard and stays pin-compatible with a DevKitC. Two nets
